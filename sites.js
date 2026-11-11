@@ -195,6 +195,23 @@ const SITES = {
           'yt-tab-shape[tab-title="Shorts"]',
         ].join(", "),
       },
+      // In theater mode the chat gets its own column; give that space back to the video.
+      // should-stamp-chat limits this to live pages, so other side panels (transcript) still work elsewhere.
+      {
+        id: "liveChat",
+        label: "live chat",
+        on: true,
+        selector: [
+          "ytd-live-chat-frame",
+          "ytd-watch-flexy[should-stamp-chat][fixed-panels] #panels-full-bleed-container",
+        ].join(", "),
+      },
+      {
+        id: "liveChatSpace",
+        label: "Give the live chat space to the video",
+        on: true,
+        css: "ytd-watch-flexy[should-stamp-chat][fixed-panels] #player-full-bleed-container { width: 100% !important; }",
+      },
       { id: "moreFromYouTube", label: "More from YouTube", on: true, selector: 'ytd-guide-section-renderer:has(a[href="/premium"])' },
       { id: "explore", label: "Explore", on: true, selector: 'ytd-guide-section-renderer:has(a[href^="/feed/storefront"])' },
       { id: "reportHistory", label: "Report history", on: true, selector: 'ytd-guide-section-renderer:has(a[href="/reporthistory"])' },
