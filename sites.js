@@ -26,10 +26,16 @@ const SITES = {
       // The sticky header above the timeline. Posts can contain tab lists too, so match only direct children.
       { id: "homeTabs", label: "home tab bar (For you, Following, pinned)", on: true, selector: '[aria-label="Home timeline"] > div:has(nav [role="tablist"]):not(:has(section))' },
       { id: "chatDrawer", label: "floating chat button", on: true, selector: '[data-testid="chat-drawer-root"]' },
-      // X pushes the menu to the right end of a wide header; align it to the start instead.
-      { id: "menuLeft", label: "Move the menu to the left edge", on: true, css: 'header[role="banner"] { align-items: flex-start !important; }' },
+      // X pushes the menu to the right end of a wide header and adds a left margin; remove both.
+      {
+        id: "menuLeft",
+        label: "Move the menu to the left edge",
+        on: true,
+        css: 'header[role="banner"] { align-items: flex-start !important; } header[role="banner"] > div { margin-left: 0 !important; }',
+      },
       { id: "menuSmall", label: "Make the menu items smaller", on: true, css: 'header[role="banner"] nav { zoom: 0.8; }' },
-      { id: "noDividers", label: "Remove the lines between posts", on: true, css: '[data-testid="cellInnerDiv"] > div { border-bottom-width: 0 !important; }' },
+      { id: "noColumnLines", label: "Remove the lines beside the timeline", on: true, css: '[data-testid="primaryColumn"] { border-left-width: 0 !important; border-right-width: 0 !important; }' },
+      { id: "softDividers", label: "Make the lines between posts fainter", on: true, css: '[data-testid="cellInnerDiv"] > div { border-bottom-color: rgba(255, 255, 255, 0.07) !important; }' },
       // r-kemksi is the class X uses for its black background in the "Lights out" theme.
       { id: "softBlack", label: "Make the background less dark", on: true, css: 'body, .r-kemksi { background-color: #121212 !important; }' },
       { id: "sidebar", label: "right sidebar (trends, who to follow)", on: true, selector: '[data-testid="sidebarColumn"]' },
