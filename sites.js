@@ -84,6 +84,24 @@ const SITES = {
         css: "ytd-rich-grid-renderer { --ytd-rich-grid-items-per-row: 5 !important; --ytd-rich-grid-item-margin: 12px !important; --ytd-rich-grid-row-margin: 20px !important; }",
       },
       { id: "create", label: "Create button", on: true, selector: "#masthead #end #buttons > ytd-button-renderer" },
+      { id: "voiceSearch", label: "voice search button", on: true, selector: "#voice-search-button" },
+      { id: "notifications", label: "notifications bell", on: true, selector: "ytd-notification-topbar-button-renderer" },
+      {
+        id: "chips",
+        label: "topic filter bar on Home",
+        on: true,
+        selector: "ytd-feed-filter-chip-bar-renderer",
+      },
+      // The blurred bar behind the masthead is twice as tall when the filter bar shows.
+      { id: "chipsSpace", label: "Remove the space of the topic filter bar", on: true, css: "#frosted-glass.with-chipbar { height: 56px !important; }" },
+      // The masthead has a transform, so `fixed` is relative to it; 100vh still reaches the window bottom.
+      // The masthead must sit above the menu (z-index 2021) or the menu catches the clicks.
+      {
+        id: "avatarBottom",
+        label: "Move the account button to the bottom left",
+        on: true,
+        css: "#masthead-container { z-index: 2022 !important; } #masthead #end ytd-topbar-menu-button-renderer { position: fixed; left: 20px; top: calc(100vh - 64px); }",
+      },
       {
         id: "shorts",
         label: "all Shorts",
