@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Minimal Web",
+  "version": "0.1.0",
+  "description": "Hide the parts of websites you do not need.",
+  "permissions": ["storage"],
+  "action": { "default_popup": "popup.html" },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["sites.js", "content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
