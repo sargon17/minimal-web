@@ -38,7 +38,7 @@ const SITES = {
         id: "menuSmall",
         label: "Make the menu items and account smaller",
         on: true,
-        css: 'header[role="banner"] nav, header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] { zoom: 0.8; }',
+        css: 'header[role="banner"] nav { zoom: 0.8; } header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] { zoom: 0.65; }',
       },
       { id: "noColumnLines", label: "Remove the lines beside the timeline", on: true, css: '[data-testid="primaryColumn"] { border-left-width: 0 !important; border-right-width: 0 !important; }' },
       // r-1ye8kvj is the class X uses to cap the timeline content at 600px.
