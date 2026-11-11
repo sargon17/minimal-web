@@ -16,6 +16,12 @@ const SITES = {
       { id: "jobs", label: "Jobs link", on: true, selector: 'header nav a[href="/jobs"]' },
       { id: "lists", label: "Lists link", on: false, selector: 'header nav a[href$="/lists"]' },
       { id: "bookmarks", label: "Bookmarks link", on: false, selector: 'header nav a[href="/i/bookmarks"]' },
+      { id: "postButton", label: "Post button in menu", on: true, selector: 'header a[data-testid="SideNav_NewTweet_Button"]' },
+      // The outermost block around the home composer that does not also wrap the timeline.
+      { id: "composer", label: "Post composer", on: true, selector: '[data-testid="primaryColumn"] div:has([data-testid="tweetTextarea_0"]):not(:has(section))' },
+      // "For you" and "Following" link to /home; pinned lists and communities link elsewhere.
+      { id: "pinnedTabs", label: "Pinned list and community tabs", on: true, selector: '[role="tablist"]:has(a[href="/home"]) [role="presentation"]:has(a[role="tab"]:not([href="/home"]))' },
+      { id: "chatDrawer", label: "Floating chat button", on: true, selector: '[data-testid="DMDrawer"], [data-testid="chat-drawer-root"]' },
       { id: "sidebar", label: "Right sidebar (trends, who to follow)", on: true, selector: '[data-testid="sidebarColumn"]' },
       { id: "grokPosts", label: "Grok buttons on posts", on: true, selector: 'button[aria-label="Grok actions"], [data-testid="GrokDrawer"]' },
       { id: "views", label: "View counts", on: true, selector: '[role="group"] a[href$="/analytics"]' },
