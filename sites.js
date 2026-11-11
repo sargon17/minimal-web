@@ -108,6 +108,20 @@ const SITES = {
           "#guide-inner-content { padding-top: 48px !important; }",
         ].join(" "),
       },
+      // Arc-like search: one soft rounded field, no border, no search button (Enter searches), smaller clear button.
+      {
+        id: "minimalSearch",
+        label: "Make the search bar minimal",
+        on: true,
+        css: [
+          "#masthead #center .ytSearchboxComponentInputBox { background: rgba(255, 255, 255, 0.06) !important; border: 0 !important; border-radius: 8px !important; height: 32px !important; padding: 0 10px !important; box-shadow: none !important; }",
+          "#masthead #center .ytSearchboxComponentInputBox:focus-within { background: rgba(255, 255, 255, 0.1) !important; }",
+          "#masthead #center .ytSearchboxComponentInput { font-size: 13px !important; }",
+          "#masthead #center .ytSearchboxComponentSearchButton, #masthead #center .ytSearchboxComponentInnerSearchIcon { display: none !important; }",
+          "#masthead #center .ytSearchboxComponentClearButton { width: 24px !important; height: 24px !important; }",
+          "#masthead #center .ytSearchboxComponentClearButton .ytIconWrapperHost, #masthead #center .ytSearchboxComponentClearButton .yt-icon-shape { width: 16px !important; height: 16px !important; }",
+        ].join(" "),
+      },
       // Shrinks the top bar to the menu column and starts the page at the top.
       // Only while the menu is docked, so the watch page keeps its normal top bar.
       {
