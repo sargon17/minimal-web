@@ -75,6 +75,14 @@ const SITES = {
     hosts: ["youtube.com"],
     rules: [
       { id: "menuSmall", label: "Make the menu items smaller", on: true, css: "ytd-guide-renderer { zoom: 0.85; }" },
+      { id: "noMenuDividers", label: "Remove the lines in the menu", on: true, css: "ytd-guide-section-renderer { border-bottom-width: 0 !important; }" },
+      // YouTube sets these variables inline on the grid; !important wins over inline styles.
+      {
+        id: "denseGrid",
+        label: "Show 5 videos per row",
+        on: true,
+        css: "ytd-rich-grid-renderer { --ytd-rich-grid-items-per-row: 5 !important; --ytd-rich-grid-item-margin: 12px !important; --ytd-rich-grid-row-margin: 20px !important; }",
+      },
       { id: "create", label: "Create button", on: true, selector: "#masthead #end #buttons > ytd-button-renderer" },
       {
         id: "shorts",
