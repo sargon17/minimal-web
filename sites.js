@@ -99,14 +99,18 @@ const SITES = {
         id: "searchInMenu",
         label: "Move the search bar into the menu",
         on: true,
+        // Only while the menu is docked; on the watch page the search stays in the top bar.
         css: [
           "#masthead #center { position: fixed; top: 60px; left: 12px; width: 180px; height: 36px; margin: 0; }",
           "#masthead #center yt-searchbox { margin-left: 0 !important; }",
-          "#masthead #center .ytSearchboxComponentInputWrapper, #masthead #center .ytSearchboxComponentInputContainer { flex: 1 !important; }",
+          "#masthead #center .ytSearchboxComponentInputWrapper { flex: 1 !important; }",
+          "#masthead #center .ytSearchboxComponentInputContainer { flex: 1 !important; }",
           "#masthead #center .ytSearchboxComponentInputBox { margin-left: 0 !important; }",
           "#masthead #center .ytSearchboxComponentSearchButton { width: 40px !important; }",
           "#guide-inner-content { padding-top: 48px !important; }",
-        ].join(" "),
+        ]
+          .map((rule) => `ytd-app[guide-persistent-and-visible] ${rule}`)
+          .join(" "),
       },
       // Arc-like search: one soft rounded field, no border, no search button (Enter searches), smaller clear button.
       {
@@ -168,7 +172,8 @@ const SITES = {
         id: "avatarBottom",
         label: "Move the account button to the bottom left",
         on: true,
-        css: "#masthead-container { z-index: 2022 !important; } #masthead #end ytd-topbar-menu-button-renderer { position: fixed; left: 20px; top: calc(100vh - 64px); }",
+        // Only while the menu is docked; on the watch page it would cover the comments.
+        css: "ytd-app[guide-persistent-and-visible] #masthead-container { z-index: 2022 !important; } ytd-app[guide-persistent-and-visible] #masthead #end ytd-topbar-menu-button-renderer { position: fixed; left: 20px; top: calc(100vh - 64px); }",
       },
       {
         id: "shorts",
