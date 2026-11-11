@@ -21,8 +21,9 @@ const SITES = {
       { id: "calls", label: "Calls link", on: true, selector: 'header nav a[href*="/calls"]' },
       { id: "creatorStudio", label: "Creator Studio link", on: true, selector: 'header nav a[href*="creator" i], header nav a[href="/i/account_analytics"]' },
       { id: "postButton", label: "post button in menu", on: true, selector: 'header a[data-testid="SideNav_NewTweet_Button"]' },
-      // The outermost block around the home composer that does not also wrap the timeline.
-      { id: "composer", label: "post composer", on: true, selector: '[data-testid="primaryColumn"] div:has([data-testid="tweetTextarea_0"]):not(:has(section))' },
+      // The outermost block around a composer that does not also wrap the timeline or a post.
+      // On a single post page the reply box shares a block with the post itself.
+      { id: "composer", label: "post and reply composer", on: true, selector: '[data-testid="primaryColumn"] div:has([data-testid="tweetTextarea_0"]):not(:has(section, article))' },
       // The sticky header above the timeline. Posts can contain tab lists too, so match only direct children.
       { id: "homeTabs", label: "home tab bar (For you, Following, pinned)", on: true, selector: '[aria-label="Home timeline"] > div:has(nav [role="tablist"]):not(:has(section))' },
       { id: "chatDrawer", label: "floating chat button", on: true, selector: '[data-testid="chat-drawer-root"]' },
@@ -37,8 +38,13 @@ const SITES = {
       { id: "noColumnLines", label: "Remove the lines beside the timeline", on: true, css: '[data-testid="primaryColumn"] { border-left-width: 0 !important; border-right-width: 0 !important; }' },
       { id: "postSpacing", label: "Add more space between posts", on: true, css: 'article[data-testid="tweet"] { padding-top: 12px !important; padding-bottom: 12px !important; }' },
       { id: "softDividers", label: "Make the lines between posts fainter", on: true, css: '[data-testid="cellInnerDiv"] > div { border-bottom-color: rgba(255, 255, 255, 0.07) !important; }' },
-      // r-kemksi is the class X uses for its black background in the "Lights out" theme.
-      { id: "softBlack", label: "Make the background less dark", on: true, css: 'body, .r-kemksi { background-color: #121212 !important; }' },
+      // In the "Lights out" theme X uses r-kemksi for black and r-5zmot for the see-through sticky headers.
+      {
+        id: "softBlack",
+        label: "Make the background less dark",
+        on: true,
+        css: 'body, .r-kemksi { background-color: #121212 !important; } .r-5zmot { background-color: rgba(18, 18, 18, 0.65) !important; }',
+      },
       { id: "sidebar", label: "right sidebar (trends, who to follow)", on: true, selector: '[data-testid="sidebarColumn"]' },
       { id: "grokPosts", label: "Grok buttons on posts", on: true, selector: 'button[aria-label="Grok actions"], [data-testid="GrokDrawer"]' },
       { id: "views", label: "view counts", on: true, selector: '[role="group"] a[href$="/analytics"]' },
