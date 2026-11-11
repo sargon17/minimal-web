@@ -8,7 +8,7 @@ const SITES = {
     hosts: ["x.com", "twitter.com"],
     rules: [
       { id: "logo", label: "X logo", on: true, selector: 'header h1:has(a[href="/home"])' },
-      { id: "explore", label: "Explore link", on: true, selector: 'header nav a[data-testid="AppTabBar_Explore_Link"]' },
+      { id: "explore", label: "Explore link", on: false, selector: 'header nav a[data-testid="AppTabBar_Explore_Link"]' },
       { id: "notifications", label: "Notifications link", on: false, selector: 'header nav a[data-testid="AppTabBar_Notifications_Link"]' },
       { id: "messages", label: "Messages link", on: false, selector: 'header nav a[data-testid="AppTabBar_DirectMessage_Link"]' },
       { id: "grokNav", label: "Grok link", on: true, selector: 'header nav a[href="/i/grok"]' },
@@ -20,7 +20,7 @@ const SITES = {
       { id: "bookmarks", label: "Bookmarks link", on: false, selector: 'header nav a[href="/i/bookmarks"]' },
       { id: "calls", label: "Calls link", on: true, selector: 'header nav a[href*="/calls"]' },
       { id: "creatorStudio", label: "Creator Studio link", on: true, selector: 'header nav a[href*="creator" i], header nav a[href="/i/account_analytics"]' },
-      { id: "postButton", label: "post button in menu", on: true, selector: 'header a[data-testid="SideNav_NewTweet_Button"]' },
+      { id: "postButton", label: "post button in menu", on: false, selector: 'header a[data-testid="SideNav_NewTweet_Button"]' },
       // The outermost block around a composer that does not also wrap the timeline or a post.
       // On a single post page the reply box shares a block with the post itself.
       { id: "composer", label: "post and reply composer", on: true, selector: '[data-testid="primaryColumn"] div:has([data-testid="tweetTextarea_0"]):not(:has(section, article))' },
