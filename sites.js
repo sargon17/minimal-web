@@ -48,8 +48,14 @@ const SITES = {
         on: true,
         css: '[data-testid="primaryColumn"], [data-testid="primaryColumn"] .r-1ye8kvj { max-width: 750px !important; }',
       },
-      { id: "postSpacing", label: "Add more space between posts", on: true, css: 'article[data-testid="tweet"] { padding-top: 12px !important; padding-bottom: 12px !important; }' },
-      { id: "softDividers", label: "Make the lines between posts fainter", on: true, css: '[data-testid="cellInnerDiv"] > div { border-bottom-color: rgba(255, 255, 255, 0.07) !important; }' },
+      // X draws a divider (r-qklmqi) only after a post that is not connected to the next one in a thread.
+      // Swap that divider for space, so threads stay joined and separate posts get room.
+      {
+        id: "postGaps",
+        label: "Replace the lines between posts with space",
+        on: true,
+        css: '[data-testid="cellInnerDiv"] > .r-qklmqi { border-bottom-width: 0 !important; padding-bottom: 32px !important; }',
+      },
       // In the "Lights out" theme X uses r-kemksi for black and r-5zmot for the see-through sticky headers.
       {
         id: "softBlack",
