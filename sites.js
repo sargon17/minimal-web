@@ -85,8 +85,15 @@ const SITES = {
         id: "menuSmall",
         label: "Make the menu items smaller",
         on: true,
-        css: "ytd-guide-renderer { zoom: 0.85; } ytd-app { --ytd-persistent-guide-width: 204px !important; } #guide { --app-drawer-width: 204px !important; }",
+        // The menu items then fill the column at 12px from each side, the same as the search bar.
+        css: [
+          "ytd-guide-renderer { zoom: 0.85; width: 240px !important; }",
+          "ytd-app { --ytd-persistent-guide-width: 204px !important; } #guide { --app-drawer-width: 204px !important; }",
+          "ytd-guide-section-renderer { padding-left: 14px !important; padding-right: 14px !important; }",
+          "ytd-guide-entry-renderer, ytd-guide-collapsible-entry-renderer { width: auto !important; }",
+        ].join(" "),
       },
+      { id: "menuButton", label: "menu button (☰)", on: true, selector: "#masthead #start #guide-button" },
       // Places the search bar at the top of the menu and removes its inner margins so it fits 180px.
       {
         id: "searchInMenu",
