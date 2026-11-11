@@ -101,6 +101,25 @@ const SITES = {
           "#guide-inner-content { padding-top: 48px !important; }",
         ].join(" "),
       },
+      // Shrinks the top bar to the menu column and starts the page at the top.
+      // Only while the menu is docked, so the watch page keeps its normal top bar.
+      {
+        id: "noTopBar",
+        label: "Remove the empty top bar",
+        on: true,
+        css: [
+          "ytd-app[guide-persistent-and-visible] #masthead-container { width: 204px !important; }",
+          "ytd-app[guide-persistent-and-visible] ytd-page-manager { margin-top: 0 !important; }",
+          "ytd-app[guide-persistent-and-visible] #frosted-glass { display: none !important; }",
+        ].join(" "),
+      },
+      // Not tested live: the test account had no members-only shelf, so this matches several badge markers.
+      {
+        id: "membersShelf",
+        label: "members-only video shelves",
+        on: true,
+        selector: 'ytd-rich-section-renderer:has(.badge-style-type-members-only, [class*="members-only"], [class*="membership"], [class*="commerce"])',
+      },
       { id: "subscriptions", label: "Subscriptions link", on: true, selector: 'ytd-guide-entry-renderer:has(a[href="/feed/subscriptions"])' },
       { id: "youHeading", label: '"You" heading in the menu', on: true, selector: 'ytd-guide-entry-renderer:has(a[href="/feed/you"])' },
       { id: "noMenuDividers", label: "Remove the lines in the menu", on: true, css: "ytd-guide-section-renderer { border-bottom-width: 0 !important; }" },
