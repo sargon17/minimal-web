@@ -102,7 +102,7 @@ const SITES = {
         // Only while the menu is docked; on the watch page the search stays in the top bar.
         css: [
           "#masthead #center { position: fixed; top: 60px; left: 12px; width: 180px; height: 36px; margin: 0; }",
-          "#masthead #center yt-searchbox { margin-left: 0 !important; }",
+          "#masthead #center yt-searchbox { margin-left: 0 !important; padding: 0 !important; }",
           "#masthead #center .ytSearchboxComponentInputWrapper { flex: 1 !important; }",
           "#masthead #center .ytSearchboxComponentInputContainer { flex: 1 !important; }",
           "#masthead #center .ytSearchboxComponentInputBox { margin-left: 0 !important; }",
@@ -121,6 +121,7 @@ const SITES = {
           "#masthead #center .ytSearchboxComponentInputBox { background: rgba(255, 255, 255, 0.06) !important; border: 0 !important; border-radius: 8px !important; height: 32px !important; padding: 0 10px !important; box-shadow: none !important; }",
           "#masthead #center .ytSearchboxComponentInputBox:focus-within { background: rgba(255, 255, 255, 0.1) !important; }",
           "#masthead #center .ytSearchboxComponentInput { font-size: 13px !important; }",
+          "#masthead #center .ytSearchboxComponentInputContainer { align-items: center !important; }",
           "#masthead #center .ytSearchboxComponentSearchButton, #masthead #center .ytSearchboxComponentInnerSearchIcon { display: none !important; }",
           "#masthead #center .ytSearchboxComponentClearButton { width: 24px !important; height: 24px !important; }",
           "#masthead #center .ytSearchboxComponentClearButton .ytIconWrapperHost, #masthead #center .ytSearchboxComponentClearButton .yt-icon-shape { width: 16px !important; height: 16px !important; }",
@@ -136,6 +137,9 @@ const SITES = {
           "ytd-app[guide-persistent-and-visible] #masthead-container { width: 204px !important; }",
           "ytd-app[guide-persistent-and-visible] ytd-page-manager { margin-top: 0 !important; }",
           "ytd-app[guide-persistent-and-visible] #frosted-glass { display: none !important; }",
+          // Lines the logo up with the menu icons at 22px; the logo icon keeps 16px of space for the hidden menu button.
+          "ytd-app[guide-persistent-and-visible] #masthead #start { padding-left: 6px !important; }",
+          "ytd-app[guide-persistent-and-visible] #masthead #start #logo-icon { padding-left: 0 !important; }",
         ].join(" "),
       },
       // Not tested live: the test account had no members-only shelf, so this matches several badge markers.
@@ -173,7 +177,7 @@ const SITES = {
         label: "Move the account button to the bottom left",
         on: true,
         // Only while the menu is docked; on the watch page it would cover the comments.
-        css: "ytd-app[guide-persistent-and-visible] #masthead-container { z-index: 2022 !important; } ytd-app[guide-persistent-and-visible] #masthead #end ytd-topbar-menu-button-renderer { position: fixed; left: 20px; top: calc(100vh - 64px); }",
+        css: "ytd-app[guide-persistent-and-visible] #masthead-container { z-index: 2022 !important; } ytd-app[guide-persistent-and-visible] #masthead #end ytd-topbar-menu-button-renderer { position: fixed; left: 8px; top: calc(100vh - 64px); }",
       },
       {
         id: "shorts",
