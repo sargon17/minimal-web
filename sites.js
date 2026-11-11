@@ -35,6 +35,7 @@ const SITES = {
       },
       { id: "menuSmall", label: "Make the menu items smaller", on: true, css: 'header[role="banner"] nav { zoom: 0.8; }' },
       { id: "noColumnLines", label: "Remove the lines beside the timeline", on: true, css: '[data-testid="primaryColumn"] { border-left-width: 0 !important; border-right-width: 0 !important; }' },
+      { id: "postSpacing", label: "Add more space between posts", on: true, css: 'article[data-testid="tweet"] { padding-top: 12px !important; padding-bottom: 12px !important; }' },
       { id: "softDividers", label: "Make the lines between posts fainter", on: true, css: '[data-testid="cellInnerDiv"] > div { border-bottom-color: rgba(255, 255, 255, 0.07) !important; }' },
       // r-kemksi is the class X uses for its black background in the "Lights out" theme.
       { id: "softBlack", label: "Make the background less dark", on: true, css: 'body, .r-kemksi { background-color: #121212 !important; }' },
