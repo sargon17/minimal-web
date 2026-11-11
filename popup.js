@@ -5,7 +5,7 @@ chrome.storage.sync.get(null).then((saved) => {
     const settings = saved[key] ?? {};
     const fieldset = document.createElement("fieldset");
     const legend = document.createElement("legend");
-    legend.textContent = `Hide on ${site.name}`;
+    legend.textContent = site.name;
     fieldset.append(legend);
 
     for (const rule of site.rules) {
@@ -17,7 +17,7 @@ chrome.storage.sync.get(null).then((saved) => {
         settings[rule.id] = input.checked;
         chrome.storage.sync.set({ [key]: settings });
       });
-      label.append(input, rule.label);
+      label.append(input, rule.css ? rule.label : `Hide ${rule.label}`);
       fieldset.append(label);
     }
     root.append(fieldset);

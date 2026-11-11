@@ -1,4 +1,5 @@
-// One entry per website. Each rule hides the elements that match its selector.
+// One entry per website. Each rule hides the elements that match its selector,
+// or adds its own `css` when it changes the layout instead.
 // `on` is the default; the popup saves your own choice per rule.
 // To add a website: add an entry here and add its URL to "matches" in manifest.json.
 const SITES = {
@@ -19,18 +20,20 @@ const SITES = {
       { id: "bookmarks", label: "Bookmarks link", on: false, selector: 'header nav a[href="/i/bookmarks"]' },
       { id: "calls", label: "Calls link", on: true, selector: 'header nav a[href*="/calls"]' },
       { id: "creatorStudio", label: "Creator Studio link", on: true, selector: 'header nav a[href*="creator" i], header nav a[href="/i/account_analytics"]' },
-      { id: "postButton", label: "Post button in menu", on: true, selector: 'header a[data-testid="SideNav_NewTweet_Button"]' },
+      { id: "postButton", label: "post button in menu", on: true, selector: 'header a[data-testid="SideNav_NewTweet_Button"]' },
       // The outermost block around the home composer that does not also wrap the timeline.
-      { id: "composer", label: "Post composer", on: true, selector: '[data-testid="primaryColumn"] div:has([data-testid="tweetTextarea_0"]):not(:has(section))' },
+      { id: "composer", label: "post composer", on: true, selector: '[data-testid="primaryColumn"] div:has([data-testid="tweetTextarea_0"]):not(:has(section))' },
       // The sticky header above the timeline. Posts can contain tab lists too, so match only direct children.
-      { id: "homeTabs", label: "Home tab bar (For you, Following, pinned)", on: true, selector: '[aria-label="Home timeline"] > div:has(nav [role="tablist"]):not(:has(section))' },
-      { id: "chatDrawer", label: "Floating chat button", on: true, selector: '[data-testid="chat-drawer-root"]' },
-      { id: "sidebar", label: "Right sidebar (trends, who to follow)", on: true, selector: '[data-testid="sidebarColumn"]' },
+      { id: "homeTabs", label: "home tab bar (For you, Following, pinned)", on: true, selector: '[aria-label="Home timeline"] > div:has(nav [role="tablist"]):not(:has(section))' },
+      { id: "chatDrawer", label: "floating chat button", on: true, selector: '[data-testid="chat-drawer-root"]' },
+      // X pushes the menu to the right end of a wide header; align it to the start instead.
+      { id: "menuLeft", label: "Move the menu to the left edge", on: true, css: 'header[role="banner"] { align-items: flex-start !important; }' },
+      { id: "sidebar", label: "right sidebar (trends, who to follow)", on: true, selector: '[data-testid="sidebarColumn"]' },
       { id: "grokPosts", label: "Grok buttons on posts", on: true, selector: 'button[aria-label="Grok actions"], [data-testid="GrokDrawer"]' },
-      { id: "views", label: "View counts", on: true, selector: '[role="group"] a[href$="/analytics"]' },
+      { id: "views", label: "view counts", on: true, selector: '[role="group"] a[href$="/analytics"]' },
       {
         id: "counts",
-        label: "Reply, repost and like counts",
+        label: "reply, repost and like counts",
         on: false,
         selector: ["reply", "retweet", "unretweet", "like", "unlike"]
           .map((id) => `[data-testid="${id}"] [data-testid="app-text-transition-container"]`)

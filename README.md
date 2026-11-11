@@ -13,8 +13,8 @@ It starts with X (Twitter). You can add more websites with a few lines.
 
 ## How it works
 
-- `sites.js` has one entry for each website. Each rule has a label, a CSS selector and a default.
-- `content.js` hides the elements of each active rule with CSS. Changes apply at once.
+- `sites.js` has one entry for each website. Each rule has a label, a default, and a CSS selector to hide or its own `css` to change the layout.
+- `content.js` adds the CSS of each active rule to the page. Changes apply at once.
 - The popup shows one checkbox for each rule. Your choices sync through your Chrome account.
 
 ## Add a website

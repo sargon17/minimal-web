@@ -12,7 +12,7 @@ if (entry) {
   const apply = (settings = {}) => {
     style.textContent = site.rules
       .filter((rule) => settings[rule.id] ?? rule.on)
-      .map((rule) => `${rule.selector} { display: none !important; }`)
+      .map((rule) => rule.css ?? `${rule.selector} { display: none !important; }`)
       .join("\n");
   };
 
