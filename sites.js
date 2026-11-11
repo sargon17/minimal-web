@@ -36,6 +36,13 @@ const SITES = {
       },
       { id: "menuSmall", label: "Make the menu items smaller", on: true, css: 'header[role="banner"] nav { zoom: 0.8; }' },
       { id: "noColumnLines", label: "Remove the lines beside the timeline", on: true, css: '[data-testid="primaryColumn"] { border-left-width: 0 !important; border-right-width: 0 !important; }' },
+      // r-1ye8kvj is the class X uses to cap the timeline content at 600px.
+      {
+        id: "wideColumn",
+        label: "Make the timeline wider",
+        on: true,
+        css: '[data-testid="primaryColumn"], [data-testid="primaryColumn"] .r-1ye8kvj { max-width: 750px !important; }',
+      },
       { id: "postSpacing", label: "Add more space between posts", on: true, css: 'article[data-testid="tweet"] { padding-top: 12px !important; padding-bottom: 12px !important; }' },
       { id: "softDividers", label: "Make the lines between posts fainter", on: true, css: '[data-testid="cellInnerDiv"] > div { border-bottom-color: rgba(255, 255, 255, 0.07) !important; }' },
       // In the "Lights out" theme X uses r-kemksi for black and r-5zmot for the see-through sticky headers.
