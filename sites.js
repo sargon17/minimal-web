@@ -81,7 +81,20 @@ const SITES = {
         on: true,
         css: "ytd-guide-renderer { zoom: 0.85; } ytd-app { --ytd-persistent-guide-width: 204px !important; } #guide { --app-drawer-width: 204px !important; }",
       },
-      { id: "searchLeft", label: "Move the search bar next to the logo", on: true, css: "#masthead #center { margin-left: 32px; margin-right: auto; }" },
+      // Places the search bar at the top of the menu and removes its inner margins so it fits 180px.
+      {
+        id: "searchInMenu",
+        label: "Move the search bar into the menu",
+        on: true,
+        css: [
+          "#masthead #center { position: fixed; top: 60px; left: 12px; width: 180px; height: 36px; margin: 0; }",
+          "#masthead #center yt-searchbox { margin-left: 0 !important; }",
+          "#masthead #center .ytSearchboxComponentInputWrapper, #masthead #center .ytSearchboxComponentInputContainer { flex: 1 !important; }",
+          "#masthead #center .ytSearchboxComponentInputBox { margin-left: 0 !important; }",
+          "#masthead #center .ytSearchboxComponentSearchButton { width: 40px !important; }",
+          "#guide-inner-content { padding-top: 48px !important; }",
+        ].join(" "),
+      },
       { id: "subscriptions", label: "Subscriptions link", on: true, selector: 'ytd-guide-entry-renderer:has(a[href="/feed/subscriptions"])' },
       { id: "youHeading", label: '"You" heading in the menu', on: true, selector: 'ytd-guide-entry-renderer:has(a[href="/feed/you"])' },
       { id: "noMenuDividers", label: "Remove the lines in the menu", on: true, css: "ytd-guide-section-renderer { border-bottom-width: 0 !important; }" },
