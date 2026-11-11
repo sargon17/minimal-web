@@ -70,4 +70,32 @@ const SITES = {
       },
     ],
   },
+  youtube: {
+    name: "YouTube",
+    hosts: ["youtube.com"],
+    rules: [
+      { id: "menuSmall", label: "Make the menu items smaller", on: true, css: "ytd-guide-renderer { zoom: 0.85; }" },
+      { id: "create", label: "Create button", on: true, selector: "#masthead #end #buttons > ytd-button-renderer" },
+      {
+        id: "shorts",
+        label: "all Shorts",
+        on: true,
+        selector: [
+          "ytd-rich-section-renderer:has([is-shorts])",
+          "ytd-reel-shelf-renderer",
+          'grid-shelf-view-model:has(a[href^="/shorts/"])',
+          'ytd-rich-item-renderer:has(a[href^="/shorts/"])',
+          'ytd-video-renderer:has(a[href^="/shorts/"])',
+          // The menu entry and the channel tab have no link, only an English title.
+          'ytd-guide-entry-renderer:has(a[title="Shorts"])',
+          'ytd-mini-guide-entry-renderer:has(a[title="Shorts"])',
+          'yt-tab-shape[tab-title="Shorts"]',
+        ].join(", "),
+      },
+      { id: "moreFromYouTube", label: "More from YouTube", on: true, selector: 'ytd-guide-section-renderer:has(a[href="/premium"])' },
+      { id: "explore", label: "Explore", on: true, selector: 'ytd-guide-section-renderer:has(a[href^="/feed/storefront"])' },
+      { id: "reportHistory", label: "Report history", on: true, selector: 'ytd-guide-section-renderer:has(a[href="/reporthistory"])' },
+      { id: "footer", label: "menu footer links", on: true, selector: "ytd-guide-renderer #footer" },
+    ],
+  },
 };
