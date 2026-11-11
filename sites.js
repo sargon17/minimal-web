@@ -74,7 +74,16 @@ const SITES = {
     name: "YouTube",
     hosts: ["youtube.com"],
     rules: [
-      { id: "menuSmall", label: "Make the menu items smaller", on: true, css: "ytd-guide-renderer { zoom: 0.85; }" },
+      // The menu column must shrink with the zoom (240px × 0.85), or a gap stays before the videos.
+      {
+        id: "menuSmall",
+        label: "Make the menu items smaller",
+        on: true,
+        css: "ytd-guide-renderer { zoom: 0.85; } ytd-app { --ytd-persistent-guide-width: 204px !important; } #guide { --app-drawer-width: 204px !important; }",
+      },
+      { id: "searchLeft", label: "Move the search bar next to the logo", on: true, css: "#masthead #center { margin-left: 32px; margin-right: auto; }" },
+      { id: "subscriptions", label: "Subscriptions link", on: true, selector: 'ytd-guide-entry-renderer:has(a[href="/feed/subscriptions"])' },
+      { id: "youHeading", label: '"You" heading in the menu', on: true, selector: 'ytd-guide-entry-renderer:has(a[href="/feed/you"])' },
       { id: "noMenuDividers", label: "Remove the lines in the menu", on: true, css: "ytd-guide-section-renderer { border-bottom-width: 0 !important; }" },
       // YouTube sets these variables inline on the grid; !important wins over inline styles.
       {
