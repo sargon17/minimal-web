@@ -54,7 +54,7 @@ const SITES = {
         id: "postGaps",
         label: "Replace the lines between posts with space",
         on: true,
-        css: '[data-testid="cellInnerDiv"] > .r-qklmqi { border-bottom-width: 0 !important; padding-bottom: 32px !important; }',
+        css: '[data-testid="cellInnerDiv"] > .r-qklmqi { border-bottom-width: 0 !important; padding-bottom: 56px !important; }',
       },
       // In the "Lights out" theme X uses r-kemksi for black and r-5zmot for the see-through sticky headers.
       {
