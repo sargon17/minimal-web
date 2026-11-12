@@ -63,7 +63,34 @@ const SITES = {
         on: true,
         css: 'body, .r-kemksi { background-color: #121212 !important; } .r-5zmot { background-color: rgba(18, 18, 18, 0.65) !important; }',
       },
-      { id: "sidebar", label: "right sidebar (trends, who to follow)", on: true, selector: '[data-testid="sidebarColumn"]' },
+      // Hidden but kept in the page, so the search box inside it can still show in the menu.
+      {
+        id: "sidebar",
+        label: "Hide the right sidebar (trends, who to follow)",
+        on: true,
+        css: '[data-testid="sidebarColumn"] { visibility: hidden !important; width: 0 !important; min-width: 0 !important; margin: 0 !important; padding: 0 !important; }',
+      },
+      // Move the sidebar search box to the top of the menu, styled like the YouTube one.
+      // The search page has its own box in the timeline, so the sidebar has none there.
+      {
+        id: "searchInMenu",
+        label: "Move the search box into the menu",
+        on: true,
+        css: [
+          // The header sits above the timeline; lift the timeline so the moved box gets the clicks.
+          'main[role="main"] { z-index: 4 !important; }',
+          '[data-testid="sidebarColumn"] div:has(> form[role="search"]) { visibility: visible !important; position: fixed !important; top: 12px; left: 12px; width: 240px; }',
+          'body:has([data-testid="sidebarColumn"] form[role="search"]) header[role="banner"] nav { margin-top: 60px !important; }',
+          '[data-testid="sidebarColumn"] form[role="search"] > div:first-child > div { min-height: 0 !important; background: rgba(255, 255, 255, 0.06) !important; border: 0 !important; border-radius: 8px !important; box-shadow: none !important; }',
+          '[data-testid="sidebarColumn"] form[role="search"] > div:first-child > div:focus-within { background: rgba(255, 255, 255, 0.1) !important; }',
+          '[data-testid="sidebarColumn"] form[role="search"] > div:first-child > div > div { border: 0 !important; }',
+          '[data-testid="sidebarColumn"] [data-testid="SearchBox_Search_Input_label"] { height: 32px !important; min-height: 0 !important; }',
+          '[data-testid="sidebarColumn"] [data-testid="SearchBox_Search_Input_label"] > div:first-child { display: none !important; }',
+          '[data-testid="sidebarColumn"] [data-testid="SearchBox_Search_Input"] { font-size: 13px !important; padding-left: 10px !important; height: 32px !important; min-height: 0 !important; }',
+          // The results list under the box.
+          '[data-testid="sidebarColumn"] form[role="search"] > div:last-child > div { width: 320px !important; border-radius: 8px !important; }',
+        ].join(" "),
+      },
       { id: "grokPosts", label: "Grok buttons on posts", on: true, selector: 'button[aria-label="Grok actions"], [data-testid="GrokDrawer"]' },
       { id: "views", label: "view counts", on: true, selector: '[role="group"] a[href$="/analytics"]' },
       {
