@@ -3,102 +3,118 @@
 // `on` is the default; the popup saves your own choice per rule.
 // To add a website: add an entry here and add its URL to "matches" in manifest.json.
 const SITES = {
+  // X moved to a new page in November 2026: no more data-testid or r-* classes.
+  // The rules use roles, labels, links, data-* attributes and X's own CSS variables (--x-*).
   x: {
     name: "X",
     hosts: ["x.com", "twitter.com"],
     rules: [
-      { id: "logo", label: "X logo", on: true, selector: 'header h1:has(a[href="/home"])' },
-      { id: "explore", label: "Explore link", on: false, selector: 'header nav a[data-testid="AppTabBar_Explore_Link"]' },
-      { id: "notifications", label: "Notifications link", on: false, selector: 'header nav a[data-testid="AppTabBar_Notifications_Link"]' },
-      { id: "messages", label: "Messages link", on: false, selector: 'header nav a[data-testid="AppTabBar_DirectMessage_Link"]' },
-      { id: "grokNav", label: "Grok link", on: true, selector: 'header nav a[href="/i/grok"]' },
-      { id: "premium", label: "Premium link", on: true, selector: 'header nav a[href="/i/premium_sign_up"], header nav a[data-testid="premium-signup-tab"]' },
-      { id: "verifiedOrgs", label: "Verified Orgs link", on: true, selector: 'header nav a[href="/i/verified-orgs-signup"]' },
-      { id: "communities", label: "Communities link", on: true, selector: 'header nav a[href$="/communities"]' },
-      { id: "jobs", label: "Jobs link", on: true, selector: 'header nav a[href="/jobs"]' },
-      { id: "lists", label: "Lists link", on: false, selector: 'header nav a[href$="/lists"]' },
-      { id: "bookmarks", label: "Bookmarks link", on: false, selector: 'header nav a[href="/i/bookmarks"]' },
-      { id: "calls", label: "Calls link", on: true, selector: 'header nav a[href*="/calls"]' },
-      { id: "creatorStudio", label: "Creator Studio link", on: true, selector: 'header nav a[href*="creator" i], header nav a[href="/i/account_analytics"]' },
-      { id: "postButton", label: "post button in menu", on: false, selector: 'header a[data-testid="SideNav_NewTweet_Button"]' },
-      // The outermost block around a composer that does not also wrap the timeline or a post.
-      // On a single post page the reply box shares a block with the post itself.
-      { id: "composer", label: "post and reply composer", on: true, selector: '[data-testid="primaryColumn"] div:has([data-testid="tweetTextarea_0"]):not(:has(section, article))' },
-      // The sticky header above the timeline. Posts can contain tab lists too, so match only direct children.
-      { id: "homeTabs", label: "home tab bar (For you, Following, pinned)", on: true, selector: '[aria-label="Home timeline"] > div:has(nav [role="tablist"]):not(:has(section))' },
-      { id: "chatDrawer", label: "floating chat button", on: true, selector: '[data-testid="chat-drawer-root"]' },
-      // X pushes the menu to the right end of a wide header and adds a left margin; remove both.
+      // The menu column is the sticky block that holds [data-rail-overflow] (the links and the post button).
+      { id: "logo", label: "X logo", on: true, selector: ':has(> [data-rail-overflow]) > div:has(> a[aria-label="X"][href="/home"])' },
+      { id: "explore", label: "Explore link", on: false, selector: 'nav[aria-label="Primary"] a[href="/explore"]' },
+      { id: "notifications", label: "Notifications link", on: false, selector: 'nav[aria-label="Primary"] a[href="/notifications"]' },
+      { id: "messages", label: "Chat (messages) link", on: false, selector: 'nav[aria-label="Primary"] :is(a[href="/i/chat"], a[href="/messages"])' },
+      { id: "grokNav", label: "Grok link", on: true, selector: 'nav[aria-label="Primary"] a[href="/i/grok"]' },
+      { id: "premium", label: "Premium link", on: true, selector: 'nav[aria-label="Primary"] a[href="/i/premium_sign_up"]' },
+      { id: "verifiedOrgs", label: "Verified Orgs link", on: true, selector: 'nav[aria-label="Primary"] a[href="/i/verified-orgs-signup"]' },
+      { id: "communities", label: "Communities link", on: true, selector: 'nav[aria-label="Primary"] a[href$="/communities"]' },
+      { id: "jobs", label: "Jobs link", on: true, selector: 'nav[aria-label="Primary"] a[href="/jobs"]' },
+      { id: "lists", label: "Lists link", on: false, selector: 'nav[aria-label="Primary"] a[href$="/lists"]' },
+      { id: "bookmarks", label: "Bookmarks link", on: false, selector: 'nav[aria-label="Primary"] a[href="/i/bookmarks"]' },
+      { id: "calls", label: "Calls link", on: true, selector: 'nav[aria-label="Primary"] a[href*="/calls"]' },
+      { id: "creatorStudio", label: "Creator Studio link", on: true, selector: 'nav[aria-label="Primary"] :is(a[href*="creator" i], a[href="/i/account_analytics"])' },
+      { id: "postButton", label: "post button in menu", on: false, selector: 'div:has(> #sidebar-compose-post)' },
+      // Home: the composer block above the timeline. Post page: the reply box inside the post.
+      {
+        id: "composer",
+        label: "post and reply composer",
+        on: true,
+        selector: 'main [data-media-upload-dropzone]:has(> form), main article div:has(> [data-media-upload-dropzone] > form)',
+      },
+      // Only the header of the home timeline; other pages keep their tabs.
+      { id: "homeTabs", label: "home tab bar (For you, Following, pinned)", on: true, selector: 'main:has([id^="urt:home"]) header[data-page-header]' },
+      { id: "chatDrawer", label: "floating chat button", on: true, selector: '[data-slot="xds-dock-window"]:has(> [data-slot="xds-dock-panel"][aria-label="Chat"])' },
+      // The menu sits in a page block that X caps at 1280px and centers; let the block fill the window.
       {
         id: "menuLeft",
         label: "Move the menu to the left edge",
         on: true,
-        css: 'header[role="banner"] { align-items: flex-start !important; } header[role="banner"] > div { margin-left: 0 !important; }',
+        css: 'body > div:has(main) { max-width: none !important; margin-left: 0 !important; margin-right: 0 !important; }',
       },
       {
         id: "menuSmall",
         label: "Make the menu items and account smaller",
         on: true,
-        css: 'header[role="banner"] nav { zoom: 0.8; } header[role="banner"] [data-testid="SideNav_AccountSwitcher_Button"] { zoom: 0.65; }',
+        css: 'nav[aria-label="Primary"] { zoom: 0.8; } :has(> [data-rail-overflow]) button[aria-label="Account menu"] { zoom: 0.65; }',
       },
-      { id: "noColumnLines", label: "Remove the lines beside the timeline", on: true, css: '[data-testid="primaryColumn"] { border-left-width: 0 !important; border-right-width: 0 !important; }' },
-      // r-1ye8kvj is the class X uses to cap the timeline content at 600px.
+      { id: "noColumnLines", label: "Remove the lines beside the timeline", on: true, css: 'body > div:has(main) main { border-left-width: 0 !important; border-right-width: 0 !important; }' },
+      // X sizes the column and the timeline inside it with these two variables.
       {
         id: "wideColumn",
         label: "Make the timeline wider",
         on: true,
-        css: '[data-testid="primaryColumn"], [data-testid="primaryColumn"] .r-1ye8kvj { max-width: 750px !important; }',
+        css: 'body > div:has(main) { --x-main-column-width: 750px !important; } main { --x-timeline-max-width: 750px !important; }',
       },
-      // X draws a divider (r-qklmqi) only after a post that is not connected to the next one in a thread.
+      // X draws a divider (border-b) only after a post that is not connected to the next one in a thread.
       // Swap that divider for space, so threads stay joined and separate posts get room.
       {
         id: "postGaps",
         label: "Replace the lines between posts with space",
         on: true,
-        css: '[data-testid="cellInnerDiv"] > .r-qklmqi { border-bottom-width: 0 !important; padding-bottom: 56px !important; }',
+        css: 'main ul > li [data-navigation-stop].border-b { border-bottom-width: 0 !important; margin-bottom: 56px !important; }',
       },
-      // In the "Lights out" theme X uses r-kemksi for black and r-5zmot for the see-through sticky headers.
+      // The dark theme paints its background with --x-bg-primary (#000); the sticky headers mix it with transparency.
       {
         id: "softBlack",
         label: "Make the background less dark",
         on: true,
-        css: 'body, .r-kemksi { background-color: #121212 !important; } .r-5zmot { background-color: rgba(18, 18, 18, 0.65) !important; }',
+        css: '[data-theme="dark"] { --x-bg-primary: #121212 !important; } html[data-theme="dark"], html[data-theme="dark"] body { background-color: #121212 !important; }',
       },
       // Hidden but kept in the page, so the search box inside it can still show in the menu.
+      // With the sidebar gone, a right margin as wide as the menu keeps the timeline in the middle of the window.
       {
         id: "sidebar",
         label: "Hide the right sidebar (trends, who to follow)",
         on: true,
-        css: '[data-testid="sidebarColumn"] { visibility: hidden !important; width: 0 !important; min-width: 0 !important; margin: 0 !important; padding: 0 !important; }',
+        css: [
+          'body > div:has(main) aside { visibility: hidden !important; position: absolute !important; width: 0 !important; height: 0 !important; }',
+          'body > div:has(main) div:has(> main):has(> aside) { grid-template-columns: minmax(0, 1fr) !important; max-width: none !important; }',
+          '@media (min-width: 1280px) { body > div:has(main) div:has(> main):has(> aside) { margin-right: 256px !important; } }',
+        ].join(" "),
       },
       // Move the sidebar search box to the top of the menu, styled like the YouTube one.
+      // CSS anchor positioning pins it to the menu links, so it also fits when the X logo shows.
       // The search page has its own box in the timeline, so the sidebar has none there.
       {
         id: "searchInMenu",
         label: "Move the search box into the menu",
         on: true,
         css: [
-          // The header sits above the timeline; lift the timeline so the moved box gets the clicks.
-          'main[role="main"] { z-index: 4 !important; }',
-          '[data-testid="sidebarColumn"] div:has(> form[role="search"]) { visibility: visible !important; position: fixed !important; top: 12px; left: 12px; width: 240px; }',
-          'body:has([data-testid="sidebarColumn"] form[role="search"]) header[role="banner"] nav { margin-top: 60px !important; }',
-          '[data-testid="sidebarColumn"] form[role="search"] > div:first-child > div { min-height: 0 !important; background: rgba(255, 255, 255, 0.06) !important; border: 0 !important; border-radius: 8px !important; box-shadow: none !important; }',
-          '[data-testid="sidebarColumn"] form[role="search"] > div:first-child > div:focus-within { background: rgba(255, 255, 255, 0.1) !important; }',
-          '[data-testid="sidebarColumn"] form[role="search"] > div:first-child > div > div { border: 0 !important; }',
-          '[data-testid="sidebarColumn"] [data-testid="SearchBox_Search_Input_label"] { height: 32px !important; min-height: 0 !important; }',
-          '[data-testid="sidebarColumn"] [data-testid="SearchBox_Search_Input_label"] > div:first-child { display: none !important; }',
-          '[data-testid="sidebarColumn"] [data-testid="SearchBox_Search_Input"] { font-size: 13px !important; padding-left: 10px !important; height: 32px !important; min-height: 0 !important; }',
-          // The results list under the box.
-          '[data-testid="sidebarColumn"] form[role="search"] > div:last-child > div { width: 320px !important; border-radius: 8px !important; }',
+          // Below 1280px X shrinks the menu to icons, too narrow for the box.
+          '@media (min-width: 1280px) {',
+          '[data-rail-overflow] { anchor-name: --minimal-web-menu; }',
+          'body:has(aside form[role="search"]) [data-rail-overflow] { padding-top: 50px !important; }',
+          'aside div:has(> form[role="search"]) { visibility: visible !important; position: fixed !important; position-anchor: --minimal-web-menu; top: calc(anchor(top) + 12px) !important; left: calc(anchor(left) + 12px) !important; width: calc(anchor-size(width) - 24px) !important; z-index: 30 !important; background: transparent !important; }',
+          '}',
+          'aside [data-slot="xds-combobox-input-group"] { height: 32px !important; min-height: 0 !important; padding: 0 10px !important; background: rgba(255, 255, 255, 0.06) !important; border: 0 !important; border-radius: 8px !important; box-shadow: none !important; }',
+          'aside [data-slot="xds-combobox-input-group"]:focus-within { background: rgba(255, 255, 255, 0.1) !important; }',
+          'aside [data-slot="xds-combobox-input-group"] > svg[data-icon="icon-search"] { display: none !important; }',
+          'aside [data-slot="xds-combobox-input"] { font-size: 13px !important; }',
         ].join(" "),
       },
-      { id: "grokPosts", label: "Grok buttons on posts", on: true, selector: 'button[aria-label="Grok actions"], [data-testid="GrokDrawer"]' },
+      {
+        id: "grokPosts",
+        label: "Grok buttons on posts",
+        on: true,
+        selector: 'span:has(> button[aria-label="Explain this post"]), [data-slot="xds-dock-window"]:has(> [data-slot="xds-dock-panel"][aria-label="Grok"])',
+      },
       { id: "views", label: "view counts", on: true, selector: '[role="group"] a[href$="/analytics"]' },
       {
         id: "counts",
         label: "reply, repost and like counts",
         on: false,
-        selector: ["reply", "retweet", "unretweet", "like", "unlike"]
-          .map((id) => `[data-testid="${id}"] [data-testid="app-text-transition-container"]`)
+        selector: ["reply", "retweet", "like"]
+          .map((action) => `[role="group"] [data-engagement-action="${action}"] span:has(> .x-animated-count-visual)`)
           .join(", "),
       },
     ],
